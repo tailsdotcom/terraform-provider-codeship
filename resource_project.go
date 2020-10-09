@@ -13,7 +13,6 @@ func resourceProject() *schema.Resource {
 	return &schema.Resource{
 		CreateContext: resourceProjectCreate,
 		ReadContext:   resourceProjectRead,
-		UpdateContext: resourceProjectUpdate,
 		DeleteContext: resourceProjectDelete,
 		Importer: &schema.ResourceImporter{
 			State: schema.ImportStatePassthrough,
@@ -22,16 +21,21 @@ func resourceProject() *schema.Resource {
 			"repo": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
+				ForceNew: true,
 			},
 			"aes_key": &schema.Schema{
-				Type:     schema.TypeString,
-				Computed: true,
+				Type:      schema.TypeString,
+				Computed:  true,
+				Sensitive: true,
 			},
 		},
 	}
 }
 
 func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	if m == nil {
+		return diag.Errorf("Codeship authentication.")
+	}
 	c := m.(*codeship.Organization)
 	project, _, err := c.CreateProject(ctx, codeship.ProjectCreateRequest{
 		RepositoryURL: d.Get("repo").(string),
@@ -47,6 +51,9 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, m interf
 }
 
 func resourceProjectRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	if m == nil {
+		return diag.Errorf("Codeship authentication.")
+	}
 	c := m.(*codeship.Organization)
 	project, _, err := c.GetProject(ctx, d.Id())
 	if err != nil {
@@ -62,10 +69,6 @@ func resourceProjectRead(ctx context.Context, d *schema.ResourceData, m interfac
 		return diag.FromErr(err)
 	}
 	return nil
-}
-
-func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return resourceProjectRead(ctx, d, m)
 }
 
 func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {

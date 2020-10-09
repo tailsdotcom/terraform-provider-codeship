@@ -30,9 +30,12 @@ func Provider() *schema.Provider {
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"codeship_project": resourceProject(),
+			"codeship_project":   resourceProject(),
+			"codeship_encrypted": resourceEncrypted(),
 		},
-		DataSourcesMap:       map[string]*schema.Resource{},
+		DataSourcesMap: map[string]*schema.Resource{
+			"codeship_project": dataSourceProject(),
+		},
 		ConfigureContextFunc: providerConfigure,
 	}
 }
@@ -46,11 +49,19 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 	auth := codeship.NewBasicAuth(username, password)
 	client, err := codeship.New(auth)
 	if err != nil {
-		return nil, diag.FromErr(err)
+		return nil, []diag.Diagnostic{{
+			Severity: diag.Warning,
+			Summary:  "Codeship authentication.",
+			Detail:   err.Error(),
+		}}
 	}
 	org, err := client.Organization(ctx, organization)
 	if err != nil {
-		return nil, diag.FromErr(err)
+		return nil, []diag.Diagnostic{{
+			Severity: diag.Warning,
+			Summary:  "Codeship can not find organization.",
+			Detail:   err.Error(),
+		}}
 	}
 
 	return org, nil
