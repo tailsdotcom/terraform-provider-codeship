@@ -1,4 +1,4 @@
-package main
+package codeship
 
 import (
 	"context"
@@ -55,5 +55,5 @@ func dataSourceProjectRead(ctx context.Context, d *schema.ResourceData, m interf
 			return diag.FromErr(err)
 		}
 	}
-	return diag.Errorf("Project not found.")
+	return diag.Errorf("Project not found: %s", d.Get("repo").(string))
 }
