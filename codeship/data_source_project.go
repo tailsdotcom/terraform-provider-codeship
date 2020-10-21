@@ -31,7 +31,7 @@ func dataSourceProjectRead(ctx context.Context, d *schema.ResourceData, m interf
 		return diag.Errorf("Codeship authentication.")
 	}
 	c := m.(*codeship.Organization)
-	projectList, resp, err := c.ListProjects(ctx)
+	projectList, resp, err := c.ListProjects(ctx, codeship.PerPage(50))
 	if err != nil {
 		return diag.FromErr(err)
 	}
