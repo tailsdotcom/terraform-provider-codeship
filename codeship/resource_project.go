@@ -41,7 +41,7 @@ func resourceProject() *schema.Resource {
 				},
 			},
 			"notification_rule": &schema.Schema{
-				Type:     schema.TypeList,
+				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -123,7 +123,7 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, m interf
 	c := m.(*codeship.Organization)
 	project, _, err := c.UpdateProject(ctx, d.Id(), codeship.ProjectUpdateRequest{
 		TeamIDs:           expandTeamIDs(d.Get("team_ids").(*schema.Set)),
-		NotificationRules: expandNotificationRules(d.Get("notification_rule").([]interface{})),
+		NotificationRules: expandNotificationRules(d.Get("notification_rule").(*schema.Set)),
 		Type:              codeship.ProjectTypePro,
 	})
 	if err != nil {
@@ -144,9 +144,9 @@ func expandTeamIDs(set *schema.Set) []int {
 	return result
 }
 
-func expandNotificationRules(list []interface{}) []codeship.NotificationRule {
-	result := make([]codeship.NotificationRule, 0, len(list))
-	for _, i := range list {
+func expandNotificationRules(set *schema.Set) []codeship.NotificationRule {
+	result := make([]codeship.NotificationRule, 0, set.Len())
+	for _, i := range set.List() {
 		ii := i.(map[string]interface{})
 		l := codeship.NotificationRule{
 			Notifier:      ii["notifier"].(string),
