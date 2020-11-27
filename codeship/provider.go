@@ -63,6 +63,5 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 			Detail:   err.Error(),
 		}}
 	}
-
 	return org, nil
 }

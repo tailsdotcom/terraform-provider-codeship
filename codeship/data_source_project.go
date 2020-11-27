@@ -22,6 +22,60 @@ func dataSourceProject() *schema.Resource {
 				Computed:  true,
 				Sensitive: true,
 			},
+			"ssh_key": &schema.Schema{
+				Type:     schema.TypeString,
+				Computed: true,
+			},
+			"team_ids": &schema.Schema{
+				Type:     schema.TypeSet,
+				Computed: true,
+				Elem: &schema.Schema{
+					Type: schema.TypeInt,
+				},
+			},
+			"notification_rule": &schema.Schema{
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"notifier": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"target": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"branch": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"key": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"url": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"room": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"build_statuses": &schema.Schema{
+							Type:     schema.TypeList,
+							Computed: true,
+							Elem: &schema.Schema{
+								Type: schema.TypeString,
+							},
+						},
+						"branch_match": &schema.Schema{
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+					},
+				},
+			},
 		},
 	}
 }
@@ -38,9 +92,7 @@ func dataSourceProjectRead(ctx context.Context, d *schema.ResourceData, m interf
 	for {
 		for _, project := range projectList.Projects {
 			if project.RepositoryURL == d.Get("repo").(string) {
-				d.SetId(project.UUID)
-				d.Set("aes_key", project.AesKey)
-				return nil
+				return readProject(d, project)
 			}
 		}
 		if resp.IsLastPage() || resp.Next == "" {
@@ -56,4 +108,47 @@ func dataSourceProjectRead(ctx context.Context, d *schema.ResourceData, m interf
 		}
 	}
 	return diag.Errorf("Project not found: %s", d.Get("repo").(string))
+}
+
+func readProject(d *schema.ResourceData, project codeship.Project) diag.Diagnostics {
+	d.SetId(project.UUID)
+	err := d.Set("repo", project.RepositoryURL)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	err = d.Set("aes_key", project.AesKey)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	err = d.Set("ssh_key", project.SSHKey)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	err = d.Set("team_ids", project.TeamIDs)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	err = d.Set("notification_rule", flattenNotificationRules(project.NotificationRules))
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	return nil
+}
+
+func flattenNotificationRules(list []codeship.NotificationRule) []map[string]interface{} {
+	result := make([]map[string]interface{}, 0, len(list))
+	for _, i := range list {
+		l := map[string]interface{}{
+			"notifier":       i.Notifier,
+			"target":         i.Target,
+			"branch":         i.Branch,
+			"build_statuses": i.BuildStatuses,
+			"key":            i.Options.Key,
+			"url":            i.Options.URL,
+			"room":           i.Options.Room,
+			"branch_match":   i.BranchMatch,
+		}
+		result = append(result, l)
+	}
+	return result
 }

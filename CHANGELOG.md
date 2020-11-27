@@ -1,3 +1,10 @@
+## 0.2.0
+
+FEATURES:
+
+- Allow updating existing projects.
+- Support `ssh_key`, `team_ids`, and `notification_rule`.
+
 ## 0.1.1
 
 BUG FIXES:
