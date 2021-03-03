@@ -1,6 +1,12 @@
-## 0.2.0
+## 0.2.2
 
 Upgrade dependencies
+
+## 0.2.1
+
+BUG FIXES:
+
+- Should be a unordered Set
 
 ## 0.2.0
 
