@@ -13,63 +13,63 @@ func dataSourceProject() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceProjectRead,
 		Schema: map[string]*schema.Schema{
-			"repo": &schema.Schema{
+			"repo": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"aes_key": &schema.Schema{
+			"aes_key": {
 				Type:      schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
-			"ssh_key": &schema.Schema{
+			"ssh_key": {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"team_ids": &schema.Schema{
+			"team_ids": {
 				Type:     schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeInt,
 				},
 			},
-			"notification_rule": &schema.Schema{
+			"notification_rule": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"notifier": &schema.Schema{
+						"notifier": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"target": &schema.Schema{
+						"target": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"branch": &schema.Schema{
+						"branch": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"key": &schema.Schema{
+						"key": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"url": &schema.Schema{
+						"url": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"room": &schema.Schema{
+						"room": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"build_statuses": &schema.Schema{
+						"build_statuses": {
 							Type:     schema.TypeList,
 							Computed: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
 							},
 						},
-						"branch_match": &schema.Schema{
+						"branch_match": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},

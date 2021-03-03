@@ -1,5 +1,9 @@
 ## 0.2.0
 
+Upgrade dependencies
+
+## 0.2.0
+
 FEATURES:
 
 - Allow updating existing projects.

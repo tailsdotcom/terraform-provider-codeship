@@ -19,65 +19,65 @@ func resourceProject() *schema.Resource {
 			State: schema.ImportStatePassthrough,
 		},
 		Schema: map[string]*schema.Schema{
-			"repo": &schema.Schema{
+			"repo": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"aes_key": &schema.Schema{
+			"aes_key": {
 				Type:      schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
-			"ssh_key": &schema.Schema{
+			"ssh_key": {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"team_ids": &schema.Schema{
+			"team_ids": {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeInt,
 				},
 			},
-			"notification_rule": &schema.Schema{
+			"notification_rule": {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"notifier": &schema.Schema{
+						"notifier": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
-						"target": &schema.Schema{
+						"target": {
 							Type:     schema.TypeString,
 							Optional: true,
 							Default:  "all",
 						},
-						"branch": &schema.Schema{
+						"branch": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
-						"key": &schema.Schema{
+						"key": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
-						"url": &schema.Schema{
+						"url": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
-						"room": &schema.Schema{
+						"room": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
-						"build_statuses": &schema.Schema{
+						"build_statuses": {
 							Type:     schema.TypeList,
 							Optional: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
 							},
 						},
-						"branch_match": &schema.Schema{
+						"branch_match": {
 							Type:     schema.TypeString,
 							Optional: true,
 							Default:  "exact",
