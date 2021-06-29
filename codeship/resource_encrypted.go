@@ -15,7 +15,7 @@ import (
 func resourceEncrypted() *schema.Resource {
 	return &schema.Resource{
 		CreateContext: resourceEncryptedCreate,
-		ReadContext:   noop,
+		ReadContext:   resourceEncryptedCreate,
 		UpdateContext: resourceEncryptedCreate,
 		DeleteContext: noop,
 		Importer: &schema.ResourceImporter{
