@@ -1,3 +1,9 @@
+## 0.2.3
+
+BUG FIXES:
+
+- Ensure dependent resources are updated.
+
 ## 0.2.2
 
 Upgrade dependencies
