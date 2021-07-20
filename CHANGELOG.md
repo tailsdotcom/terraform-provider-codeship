@@ -1,3 +1,9 @@
+## 0.2.4
+
+BUG FIXES:
+
+- Revert 0.2.3 it always updates.
+
 ## 0.2.3
 
 BUG FIXES:
