@@ -20,7 +20,7 @@ require (
 	github.com/hashicorp/go-plugin v1.4.3 // indirect
 	github.com/hashicorp/go-uuid v1.0.2 // indirect
 	github.com/hashicorp/hcl/v2 v2.10.1 // indirect
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.8.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.9.0
 	github.com/hashicorp/yamux v0.0.0-20210826001029-26ff87cf9493 // indirect
 	github.com/julz/importas v0.0.0-20210922140945-27e0a5d4dee2 // indirect
 	github.com/kunwardeep/paralleltest v1.0.3 // indirect
@@ -39,7 +39,6 @@ require (
 	github.com/stretchr/objx v0.3.0 // indirect
 	github.com/tetafro/godot v1.4.11 // indirect
 	github.com/timakin/bodyclose v0.0.0-20210704033933-f49887972144 // indirect
-	github.com/zclconf/go-cty v1.9.1 // indirect
 	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/net v0.0.0-20210924054057-cf34111cab4d // indirect
 	golang.org/x/sys v0.0.0-20210923061019-b8560ed6a9b7 // indirect
