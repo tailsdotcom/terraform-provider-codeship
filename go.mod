@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/codeship/codeship-go v0.0.0-20201103162013-82059492d39f
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.9.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.10.0
 )
 
 require (
@@ -75,7 +75,10 @@ require (
 	github.com/hashicorp/go-version v1.3.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.10.1 // indirect
-	github.com/hashicorp/terraform-plugin-go v0.4.0 // indirect
+	github.com/hashicorp/terraform-plugin-go v0.5.0 // indirect
+	github.com/hashicorp/terraform-plugin-log v0.2.0 // indirect
+	github.com/hashicorp/terraform-registry-address v0.0.0-20210412075316-9b2996cce896 // indirect
+	github.com/hashicorp/terraform-svchost v0.0.0-20200729002733-f050f53b9734 // indirect
 	github.com/hashicorp/yamux v0.0.0-20211028200310-0bc27b27de87 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jgautheron/goconst v1.5.1 // indirect
