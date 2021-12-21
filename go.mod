@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/codeship/codeship-go v0.0.0-20201103162013-82059492d39f
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.10.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.10.1
 )
 
 require (
